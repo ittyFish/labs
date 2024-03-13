@@ -1,0 +1,4 @@
+pragma ^0.8.24;
+
+contract hello{
+}
