@@ -16,16 +16,6 @@ contract walletFuzzTest is Test {
         payable(address(w)).transfer(10000);
     }
 
-
-    // function testFuzz_Withdraw(uint8 amount) public {
-    //     console.log(amount);
-    //   // payable(address(w)).transfer(amount);
-    //     uint256 preBalance = address(this).balance;//100
-    //     w.withdraw(amount);
-    //     uint256 postBalance = address(this).balance;//0
-    //     assertEq(preBalance , postBalance + amount,"noe eq");
-    // }
-
       function fuzztest_receive(uint88 amount) public{
        console.log(amount);
         uint256 preBalance = address(this).balance;//100
@@ -34,6 +24,54 @@ contract walletFuzzTest is Test {
           assertEq(preBalance +amount , afterBalance ,"noe eq");
 
     }
+
+    function testFuzz_AllowWithdraw(uint8 amount) public {
+      userAddress = 0x68BF2f4E4091C29dFa88B2c8bCBB65f00A63CE04;
+      vm.startPrank(userAddress);
+      vm.deal(userAddress , amount);
+      payable(address(w)).transfer(amount);
+      uint beforeBalance = address(w).balance;
+      w.withdraw(amount);
+      uint afterBalance =  address(w).balance;
+      assertEq(beforeBalance -amount , afterBalance);
+      vm.stopPrank();
+    }
+        function testWithDrawNoMoney(uint256 amount) external {
+        console.log(amount, " with draw amount");
+        userAddress = 0x7a3b914a1f0bD991BAf826F4fE9a47Bb9880d25f; // address of allowed user
+        vm.startPrank(userAddress); // send from user address
+        if(amount!= 0){
+            vm.expectRevert();
+        }
+        walletGabaim.withdraw(amount);
+        vm.stopPrank();
+    }
+        function testNotAllowedWithDraw(uint256 amount) external {
+        console.log(amount, " with draw amount");
+         address userAddress = vm.addr(1);
+        vm.startPrank(userAddress); // send from user address
+        vm.deal(userAddress, amount); 
+        payable(address(w)).transfer(amount); // move amount to the contract
+        vm.expectRevert();
+        w.withdraw(amount);
+        vm.stopPrank();
+    }
+
+    
+    function testUpdateCollectors(address oldGabai, address newGabai) public {
+        address ownerAddress = 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496; // address of owner user
+        vm.startPrank(ownerAddress); // send from owner address
+        console.log(address(msg.sender));
+        if(w.collectors(oldGabai)!=true){
+            vm.expectRevert();
+        }
+        w.updateCollectors(oldGabai, newGabai);
+        vm.stopPrank();
+    }
+}
+
+
+  
 
      
 }
