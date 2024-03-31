@@ -40,6 +40,14 @@ contract walletTest is Test {
          assertEq(initalBalance , finalBalance);
          vm.stopPrank();
     }
+      function fuzztest_receive(uint88 amount) public{
+       console.log(amount);
+        uint256 preBalance = address(this).balance;//100
+        payable(address(w)).transfer(amount);
+         uint256 afterBalance = address(this).balance;//100
+          assertEq(preBalance +amount , afterBalance ,"noe eq");
+
+    }
 
     function testAllowedWithdraw() public {
          uint256 amount1 = 50 ;
