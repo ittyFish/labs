@@ -65,7 +65,7 @@ contract walletFuzzTest is Test {
         if(w.gabaim(oldGabai)!=true){
             vm.expectRevert();
         }
-        w.updateCollectors(oldGabai, newGabai);
+        w.changeOwner(oldGabai, newGabai);
         vm.stopPrank();
     }
 }
