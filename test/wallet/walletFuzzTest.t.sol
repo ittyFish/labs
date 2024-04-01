@@ -13,7 +13,6 @@ contract walletFuzzTest is Test {
 
      function setUp() public {
           w = new Wallet1(0x68BF2f4E4091C29dFa88B2c8bCBB65f00A63CE04,0x57C91e4803E3bF32c42a0e8579aCaa5f3762af71,0x7ae3DbAC75D264B6F6976639ebBfC645601D3F15);
-        payable(address(w)).transfer(10000);
     }
 
       function fuzztest_receive(uint88 amount) public{
@@ -38,7 +37,7 @@ contract walletFuzzTest is Test {
     }
         function testWithDrawNoMoney(uint256 amount) external {
         console.log(amount, " with draw amount");
-        address userAddress = 0x7a3b914a1f0bD991BAf826F4fE9a47Bb9880d25f; // address of allowed user
+        address userAddress = 0x57C91e4803E3bF32c42a0e8579aCaa5f3762af71; // address of allowed user
         vm.startPrank(userAddress); // send from user address
         if(amount!= 0){
             vm.expectRevert();
@@ -63,10 +62,10 @@ contract walletFuzzTest is Test {
         vm.startPrank(ownerAddress); // send from owner address
         console.log(address(msg.sender));
         if(w.gabaim(oldGabai)!=true){
-            vm.expectRevert();
-        }
+            vm.expectRevert();       
+        }    
         w.changeOwner(oldGabai, newGabai);
-        vm.stopPrank();
+        vm.stopPrank();  
     }
 }
 
