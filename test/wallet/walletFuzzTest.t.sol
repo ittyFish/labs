@@ -62,7 +62,7 @@ contract walletFuzzTest is Test {
         address ownerAddress = 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496; // address of owner user
         vm.startPrank(ownerAddress); // send from owner address
         console.log(address(msg.sender));
-        if(w.collectors(oldGabai)!=true){
+        if(w.gabaim(oldGabai)!=true){
             vm.expectRevert();
         }
         w.updateCollectors(oldGabai, newGabai);
