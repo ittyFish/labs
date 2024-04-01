@@ -26,7 +26,7 @@ contract walletFuzzTest is Test {
     }
 
     function testFuzz_AllowWithdraw(uint8 amount) public {
-      userAddress = 0x68BF2f4E4091C29dFa88B2c8bCBB65f00A63CE04;
+      address userAddress = 0x68BF2f4E4091C29dFa88B2c8bCBB65f00A63CE04;
       vm.startPrank(userAddress);
       vm.deal(userAddress , amount);
       payable(address(w)).transfer(amount);
@@ -38,12 +38,12 @@ contract walletFuzzTest is Test {
     }
         function testWithDrawNoMoney(uint256 amount) external {
         console.log(amount, " with draw amount");
-        userAddress = 0x7a3b914a1f0bD991BAf826F4fE9a47Bb9880d25f; // address of allowed user
+        address userAddress = 0x7a3b914a1f0bD991BAf826F4fE9a47Bb9880d25f; // address of allowed user
         vm.startPrank(userAddress); // send from user address
         if(amount!= 0){
             vm.expectRevert();
         }
-        walletGabaim.withdraw(amount);
+        w.withdraw(amount);
         vm.stopPrank();
     }
         function testNotAllowedWithDraw(uint256 amount) external {
