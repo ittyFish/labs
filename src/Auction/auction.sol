@@ -5,18 +5,18 @@ import "../staking/mytoken.sol";
 import "./ERC721.sol";
 
 contract Auction {
-   bool public flagFinish;
-    address public owner;
+     bool public flagFinish;
+     address public owner;
+     uint public finishTime;
+     mapping(address=>uint) public bidders;
      MyToken public immutable myToken;
      NFTtoken public immutable nft;
-     uint public finishTime;
-     mapping(address=>uint) bidders;
      address [] public addresses;
-     address winner;
+     address public winner;
   constructor(uint sum,address token,address n){
     myToken = MyToken(token);
      nft=NFTtoken(n);
-       owner=msg.sender;
+     owner=msg.sender;
      nft.mint(owner,5);
     bidders[msg.sender]=sum;
     winner=msg.sender;
@@ -43,7 +43,7 @@ contract Auction {
   function cancelation() external{
     require(winner!=msg.sender,"the winner cant cancel");
      if(block.timestamp<finishTime){
-         myToken.transferFrom(msg.sender,address(this),bidders[msg.sender]);
+         myToken.transfer(msg.sender,bidders[msg.sender]);
          bidders[msg.sender]=0;
     }
     else if(!flagFinish){
@@ -53,16 +53,13 @@ contract Auction {
   }
 
   function finish() public{
-    if(winner==owner){
-         myToken.transferFrom(address(this),owner,bidders[owner]);
-    }
-    else{
+    require(winner==owner,"error not the winner");
     for(uint i=0;i<addresses.length;i++){
-        if(bidders[addresses[i]]>0&&addresses[i]!=winner)
-            myToken.transferFrom(address(this),addresses[i],bidders[addresses[i]]);
+        if(bidders[addresses[i]]> 0&& addresses[i]!=winner)
+            myToken.transfer(addresses[i],bidders[addresses[i]]);
     }
     nft.transferFrom(owner,winner,5);
-    }
+
 
 
   }
@@ -73,3 +70,4 @@ contract Auction {
  
 
 }
+
