@@ -14,10 +14,10 @@ contract Staking  {
 
  mapping(address=>uint) public numOfDeposit;
 
-  constructor() {
+  constructor(address mytoken,uint256 total) {
         owner = msg.sender;
-        stakingToken = IERC20(0x127fea9Dd797E70B2BF3AdBDda7a9F324332b01f);
-        totalSupply=1000000;
+        stakingToken = IERC20(mytoken);
+        totalSupply=total;
         stakingToken.transfer(address(this),totalSupply);
     }
 
