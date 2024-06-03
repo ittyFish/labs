@@ -128,8 +128,7 @@ class ERC20 {
             union_sum_as_units(b_base, {a1,a2});
         }
     }
-
-
+{}
     // recursive ghost function that calculates the sum of the second elements of all tuples
     // in a given set. It uses pattern matching to extract elements from the set and
     // recursively processes the remaining elements until the set is empty.
