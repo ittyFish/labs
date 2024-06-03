@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
-import './library/storageSlot.sol';
+import "./library/StorageSlot.sol";
 
 contract Proxy {
     // All functions / variables should be private, forward all calls to fallback
