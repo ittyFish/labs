@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  },
+  "name": "labs",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ittyFish/labs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ittyFish/labs/issues"
+  },
+  "homepage": "https://github.com/ittyFish/labs#readme"
+}
