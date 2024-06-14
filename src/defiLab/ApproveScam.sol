@@ -3,19 +3,6 @@ pragma solidity ^0.8.18;
 
 import "forge-std/Test.sol";
 
-/*
-Name: Over-Permissive Approve Scam
-
-Description:
-This vulnerability is associated with the approval process in ERC20 tokens. 
-In this scenario, Alice approves Eve to transfer an unlimited (type(uint256).max) amount of tokens 
-from Alice's account. Later, Eve exploits this permission and transfers 1000 tokens from Alice's account to hers.
-
-Most current scams use approve or setApprovalForAll to defraud your transfer rights. Be especially careful with this part.
-
-Mitigation:
-Users should only approve the amount of tokens necessary for the operation at hand. 
-*/
 
 contract ContractTest is Test {
     ERC20 ERC20Contract;
@@ -28,9 +15,7 @@ contract ContractTest is Test {
         ERC20Contract.transfer(address(alice), 1000);
 
         vm.prank(alice);
-        // Be Careful to grant unlimited amount to unknown website/address.
-        // Do not perform approve, if you are sure it's from a legitimate website.
-        // Alice granted approval permission to Eve.
+        
         ERC20Contract.approve(address(eve), type(uint256).max);
 
         console.log(
@@ -41,7 +26,7 @@ contract ContractTest is Test {
             "Due to Alice granted transfer permission to Eve, now Eve can move funds from Alice"
         );
         vm.prank(eve);
-        // Now, Eve can move funds from Alice.
+       
         ERC20Contract.transferFrom(address(alice), address(eve), 1000);
         console.log(
             "After exploiting, Balance of Eve:",
