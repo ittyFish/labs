@@ -16,7 +16,7 @@ function f()public{
     _f(arr,map,myStruct[1]);
 
     MyStruct storage myS = myStruct[1];
-    MyStruct memory mySt = myStruct(0);
+    MyStruct memory mySt = MyStruct(0);
 
 }
  function _f(uint256[] storage _arr,mapping(uint256=>address) storage _map,MyStruct storage _myStruct)internal{
